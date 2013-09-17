@@ -33,9 +33,10 @@ if defined?(Sprockets::StaticCompiler)
           @source_digests[logical_path] = asset.digest
 
           # Recompile if digest has changed or compiled digest file is missing
+          # or if this is a package file
           current_digest_file = @current_digests[logical_path]
 
-          if @source_digests[logical_path] != @current_source_digests[logical_path] ||
+          if logical_path.match(/\.pkg/) != nil && @source_digests[logical_path] != @current_source_digests[logical_path] ||
              !(current_digest_file && File.exists?("#{@target}/#{current_digest_file}"))
 
             if asset = env.find_asset(logical_path)
