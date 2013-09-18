@@ -36,7 +36,7 @@ if defined?(Sprockets::StaticCompiler)
           # or if this is a package file
           current_digest_file = @current_digests[logical_path]
 
-          puts "compiling " + logical_path + ", is package == " + logical_path.gsub(/package\.js$/i).count == 1
+          puts "compiling " + logical_path + ", is package == " + logical_path.gsub(/package\.js$/i).any?.to_s
 
 
           if logical_path.gsub(/package\.js$/i).any? || @source_digests[logical_path] != @current_source_digests[logical_path] ||
