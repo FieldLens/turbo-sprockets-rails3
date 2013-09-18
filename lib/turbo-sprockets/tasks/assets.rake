@@ -5,7 +5,6 @@ require 'shellwords'
 # but preserve any extra actions added via 'enhance'
 task_enhancements = {}
 Rake::Task.tasks.each do |task|
-  puts "111"
   if task.name.match '^assets:'
     task_enhancements[task.name] = task.actions[1..-1] if task.actions.size > 1
     task.clear
@@ -15,7 +14,6 @@ end
 # Replace with our extended assets tasks
 namespace :assets do
   def ruby_rake_task(task, fork = true)
-    puts "2222"
     env    = ENV['RAILS_ENV'] || 'production'
     groups = ENV['RAILS_GROUPS'] || 'assets'
     args   = [$0, task,"RAILS_ENV=#{env}","RAILS_GROUPS=#{groups}"]
@@ -31,7 +29,6 @@ namespace :assets do
   # and/or no explicit environment - we have to reinvoke rake to
   # execute this task.
   def invoke_or_reboot_rake_task(task)
-    puts "3333"
     if ENV['RAILS_GROUPS'].to_s.empty? || ENV['RAILS_ENV'].to_s.empty?
       ruby_rake_task task
     else
@@ -55,7 +52,6 @@ namespace :assets do
 
   namespace :precompile do
     def internal_precompile(digest=nil)
-      puts "precompile!"
       unless Rails.application.config.assets.enabled
         warn "Cannot precompile assets if sprockets is disabled. Please set config.assets.enabled to true"
         exit

@@ -36,6 +36,8 @@ if defined?(Sprockets::StaticCompiler)
           # or if this is a package file
           current_digest_file = @current_digests[logical_path]
 
+          puts "compiling " + logical_path + " == " + logical_path.match(/\.pkg/).to_s
+
           if logical_path.match(/\.pkg/) != nil && @source_digests[logical_path] != @current_source_digests[logical_path] ||
              !(current_digest_file && File.exists?("#{@target}/#{current_digest_file}"))
 
